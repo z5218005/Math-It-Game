@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Math-It-Game</string>
+    <string name="math_it">Math It</string>
+    <string name="answer_the_question">Answer the question!</string>
+    <string name="_50">50</string>
+    <string name="_30">30</string>
+    <string name="equal">=</string>
+    <string name="operator">+</string>
 </resources>
