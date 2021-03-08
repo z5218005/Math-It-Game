@@ -12,12 +12,12 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView randomNum1, randomNum2, result, randomOperator, displayAnswer;
+    TextView randomNum1, randomNum2, result, randomOperator, score, showAnswer;
 
     EditText userInput;
 
+    int scoreCounter;
 
-    Button submitButton, clearButton;
 
     String randomSign;
 
@@ -31,12 +31,10 @@ public class MainActivity extends AppCompatActivity {
         randomNum1 = findViewById(R.id.randomNumberOne);
         randomNum2 = findViewById(R.id.randomNumberTwo);
         result = findViewById(R.id.result);
-        displayAnswer = findViewById(R.id.displayAnswer);
         randomOperator = findViewById(R.id.randomOperator);
+        score = findViewById(R.id.score);
+        showAnswer = findViewById(R.id.showAnswer);
         userInput = (EditText) findViewById(R.id.userInput);
-
-
-        //submitButton = (Button) findViewById(R.id.enterButton);
 
 
         run_reset();
@@ -50,7 +48,7 @@ public void run_reset(){
     int num1 = myRandom.nextInt(101);
     int num2 = myRandom.nextInt(101);
     String[] signs = {"+", "-", "×", "÷"};
-    int randomIndex = randInt.nextInt((signs.length - 0 + 1) + 0);
+    int randomIndex = randInt.nextInt(signs.length);
     randomSign = signs[randomIndex];
 
     randomNum1.setText(""+num1);
@@ -72,85 +70,39 @@ public void run_reset(){
         int num1 = Integer.parseInt(randomNum1.getText().toString());
         int num2 = Integer.parseInt(randomNum2.getText().toString());
         double get_user_answer = Double.parseDouble(userInput.getText().toString());
+        double answer = 0;
+        String disAns;
 
-        double answer;
-        switch(randomSign){
+        switch(randomSign) {
             case "+":
                 answer = num1 + num2;
-                String disAns1 = String.valueOf(answer);
-                if (answer == get_user_answer){
-                    result.setText("Correct!");
-                    displayAnswer.setText(disAns1);
-
-
-                }
-
-                else {
-                    result.setText("Incorrect");
-                    displayAnswer.setText(disAns1);
-
-                }
-
                 break;
             case "-":
                 answer = num1 - num2;
-                String disAns2 = String.valueOf(answer);
-
-                if (answer == get_user_answer){
-                    result.setText("Correct!");
-                    displayAnswer.setText(disAns2);
-
-
-                }
-                else {
-                    result.setText("Incorrect");
-                    displayAnswer.setText(disAns2);
-
-                }
+                break;
             case "÷":
                 answer = num1 / (double) num2;
-                double answer2dp = (double) Math.round(answer *100 )/100;
-                String disAns3 = String.valueOf(answer2dp);
-
-                if (answer2dp == get_user_answer){
-                    result.setText("Correct!");
-                    displayAnswer.setText(disAns3);
-
-                }
-                else {
-                    result.setText("Incorrect");
-                    displayAnswer.setText(disAns3);
-
-                }
+                answer = Math.round(answer * 100.00) / 100.00;
+                break;
             case "×":
                 answer = num1 * num2;
-                String disAns4 = String.valueOf(answer);
 
-                if (answer == get_user_answer){
-                    result.setText("Correct!");
-                    displayAnswer.setText(disAns4);
-
-
-                }
-                else {
-                    result.setText("Incorrect");
-                    displayAnswer.setText(disAns4);
-
-                }
         }
 
-        /**submitButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        answer = Integer.valueOf(answerInput.getText().toString());
+        if (answer == get_user_answer){
+            result.setText("Correct!");
+            scoreCounter++;
+
+        }else{
+            result.setText("Incorrect");
+            scoreCounter--;
         }
-        }**/
-
-
-
-
+        score.setText(""+scoreCounter);
+        disAns = String.valueOf(answer);
+        showAnswer.setText(disAns);
 
 
 
     }
+
 }
